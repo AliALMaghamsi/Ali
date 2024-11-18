@@ -1,0 +1,169 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    DashBoard
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-12 col-md-4 col-lg-3">
+            <div class="d-flex flex-column gap-2 text-bg-dark align-items-center" style="width: 280px;">
+                <a href="{% url 'dashboard:dashboard_view' user password %}" class="btn">
+                    <h1>DashBoard</h1>
+                    <hr>
+                </a>
+                <div class="d-flex flex-column gap-5">
+                    <form method="POST" action="{% url 'dashboard:dashboard_view' user password %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-dark nav-link text-white" name="section" value="projects">
+                            <h1>Projects</h1>
+                        </button>
+                    </form>
+                    <form method="POST" action="{% url 'dashboard:dashboard_view' user password %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-dark nav-link text-white mt-5" name="section" value="messages">
+                            <h1>Messages</h1>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-12 col-md-8 col-lg-9">
+            {% if section == "projects" %}
+            <!-- Projects Section -->
+            <div class="table-responsive mt-3">
+                <div class="d-flex align-items-center justify-content-end gap-2 mb-3 me-4">
+                    <form action="{% url 'dashboard:dashboard_view' user password %}">
+                        <select name="order_by" class="form-select" onchange="this.form.submit()">
+                            <option value="">order_by</option>
+                            <option value="completed_date" {% if request.GET.order_by == 'completed_date' %} selected {% endif %}>Date</option>
+                            <option value="category" {% if request.GET.order_by == 'category' %} selected {% endif %}>Category</option>
+                        </select>
+                    </form>
+                    <a href="{% url 'projects:new_project_view' %}" class="btn btn-primary">+Add New Project</a>
+                    <form action="{% url 'dashboard:dashboard_view' user password %}" method="get" class="d-flex">
+                        <input type="text" name="search" class="form-control me-2" placeholder="Search projects..." aria-label="Search" value="{{ request.GET.search }}">
+                        <button type="submit" class="btn btn-outline-light">Search</button>
+                    </form>
+                </div>
+                <div style="width: 15%;">
+                    <form method="get" class="d-flex">
+                        <select  name="page" class="form-select" onchange="this.form.submit()">
+                            {% for page_number in display.paginator.page_range %}
+                            <option value="{{ page_number }}" {% if display.number == page_number %}selected{% endif %}>
+                                {{ page_number }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
+                <table class="table table-striped table-dark">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Video</th>
+                            <th>Title</th>
+                            <th>Technologies</th>
+                            <th>Completed Date</th>
+                            <th>Project Link</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for project in display %}
+                        <tr>
+                            <td>
+                                {% if project.image %}
+                                <img src="{{ project.image.url }}" alt="{{ project.title }}" style="width: 100px;">
+                                {% else %}
+                                No image
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if project.video %}
+                                <video muted autoplay loop src="{{ project.video.url }}" style="width: 100px;"></video>
+                                {% else %}
+                                No video
+                                {% endif %}
+                            </td>
+                            <td>{{ project.title }}</td>
+                            <td>{{ project.technologies }}</td>
+                            <td>{{ project.completed_date }}</td>
+                            <td><a href="{{ project.link }}" target="_blank">link</a></td>
+                            <td>{{ project.get_category_display }}</td>
+                            <td>
+                                <div class="d-flex">
+                                    <a href="{% url 'projects:project_detail_view' project.id %}" class="btn btn-sm text-white" title="View">View</a>
+                                    <a href="{% url 'projects:update_project_view' project.id %}" class="btn btn-sm text-white" title="Update">Update</a>
+                                    <a href="{% url 'projects:delete_project_view' project.id %}" class="btn btn-sm text-white" title="Delete">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center">No projects found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% elif section == "messages" %}
+            <!-- Messages Section -->
+            <div class="container text-white d-flex flex-column gap-3">
+                <h1 class="text-center">Messages from Users</h1>
+                <div class="row mt-2 d-flex justify-content-start">
+                    {% for message in display %}
+                    <div class="col-md-4 mt-2">
+                        <div class="card" style="width: 20rem;">
+                            <div class="card-body">
+                                <h5 class="card-title d-flex gap-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                                    </svg>
+                                    <p>{{ message.first_name }} {{ message.last_name }}</p>
+                                    <h6 class="card-subtitle my-2 text-dark">Sent at: {{ message.created_at }}</h6>
+                                    <a href="mailto:{{ message.email }}" class="text-decoration-none text-black">{{ message.email }}</a>
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary mt-3">{{ message.message }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <h1>No messages found</h1>
+                    {% endfor %}
+                    <div class="d-flex justify-content-center mt-5">
+                        <ul class="pagination">
+                            {% if display.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link text-decoration-underline text-dark" href="?section=messages&page=1">First</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link text-dark" href="?section=messages&page={{ display.previous_page_number }}">Previous</a>
+                            </li>
+                            {% endif %}
+                            <li class="page-item disabled">
+                                <span class="page-link">Page {{ display.number }} of {{ display.paginator.num_pages }}</span>
+                            </li>
+                            {% if display.has_next %}
+                            <li class="page-item">
+                                <a class="page-link text-dark" href="?section=messages&page={{ display.next_page_number }}">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link text-decoration-underline text-dark" href="?section=messages&page={{ display.paginator.num_pages }}">Last</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

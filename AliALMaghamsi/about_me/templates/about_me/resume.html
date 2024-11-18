@@ -1,0 +1,108 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    Resume
+{% endblock title %}
+    
+
+
+{% block content %}
+<div class="container my-5 text-white d-flex flex-column gap-5 ">
+
+        <a href="{% static 'files/AliALMaghamsi.pdf' %}" class="btn btn-dark animate__animated animate__bounce align-self-center" download>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download mx-2" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+              </svg>
+            Download Resume
+        </a>
+
+    </section>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 ">
+            
+            <header class="text-center mb-4">
+                <h1>Ali Khalid Mohammed ALMaghamsi</h1>
+                <p>Makkah, Saudi Arabia | <a href="mailto:almaghmsiali@gmail.com" class="text-decoration-none">almaghmsiali@gmail.com</a> | 0591445281 | <a href="https://linkedin.com/in/ali-al-maghamsi-729593313"class="text-decoration-none" target="_blank">LinkedIn</a></p>
+               
+            </header>
+            <hr class="border border-dark-subtle opacity-75">
+
+            <section class="mb-4">
+                <h2 class="text-uppercase font-weight-bold">Career Objective</h2>
+                <p>
+                    As a dedicated computer science graduate, I am eager to grow and contribute in a role where I can solve problems,
+                    adapt quickly, and deliver results. With strong technical skills in programming and a commitment to continuous improvement,
+                    I aim to develop my expertise and make a meaningful impact.
+                </p>
+            </section>
+            <hr class="border border-dark-subtle opacity-75">
+            <section class="mb-4">
+                <h2 class="text-uppercase font-weight-bold">Education</h2>
+                <p><strong>Umm Al-Qura University</strong> - Makkah, Saudi Arabia</p>
+                <p>Bachelor of Science in Computer Science, 2020 - 2024</p>
+                <p>GPA: 3.9/4.0</p>
+            </section>
+            <hr class="border border-dark-subtle opacity-75">
+            <section class="mb-4">
+                <h2 class="text-uppercase font-weight-bold">Work Experience</h2>
+                <div class="mb-3">
+                    <h5>Platform Agent (Part-time)</h5>
+                    <p>Makkah, Saudi Arabia</p>
+                    <ul>
+                        <li>Managed crowd control at train platforms, ensuring the safety and orderly movement of people.</li>
+                    </ul>
+                </div>
+                <div class="mb-3">
+                    <h5>Call Center Agent (Part-time)</h5>
+                    <p>Makkah, Saudi Arabia</p>
+                    <ul>
+                        <li>Provided assistance to pilgrims during peak seasons, ensuring smooth operations and addressing inquiries.</li>
+                    </ul>
+                </div>
+            </section>
+            <hr class="border border-dark-subtle opacity-75">
+            <section class="mb-4">
+                <h2 class="text-uppercase font-weight-bold">Skills</h2>
+                <h5>Technical Skills</h5>
+                <p>Java, Python, Oracle Apex, SQL, HTML, CSS, JavaScript, PyTorch (basic), GitHub, Git, CLI</p>
+
+                <h5>Soft Skills</h5>
+                <ul class="list-unstyled">
+                    <li>Hard worker</li>
+                    <li>Strong under pressure</li>
+                    <li>Quick learner</li>
+                    <li>Effective communicator</li>
+                    <li>Adaptable</li>
+                </ul>
+            </section>
+            <hr class="border border-dark-subtle opacity-75">
+            <section class="mb-4">
+                <h2 class="text-uppercase font-weight-bold">Projects</h2>
+                <div class="mb-3">
+                    <h5>Food Recognition and Calorie Estimation App</h5>
+                    <p>Developed an application that identifies food items from images and provides calorie counts.</p>
+                    <p><strong>Role:</strong> Team Leader, Data Collector, and Backend Developer</p>
+                </div>
+                <div class="mb-3">
+                    <h5>Restaurant Review Analysis Program</h5>
+                    <p>Collected and filtered reviews to analyze customer sentiments for a restaurant.</p>
+                </div>
+            </section>
+            <hr class="border border-dark-subtle opacity-75">
+            <section class="mb-4">
+                <h2 class="text-uppercase font-weight-bold">Certificates</h2>
+                <p>Web Development Using Python (In Progress)</p>
+            </section>
+            <hr class="border border-dark-subtle opacity-75">
+            <section class="mb-4">
+                <h2 class="text-uppercase font-weight-bold">Languages</h2>
+                <p>Arabic, English (STEP score: 82)</p>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+    

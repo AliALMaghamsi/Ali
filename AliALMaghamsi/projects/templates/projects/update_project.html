@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+
+
+
+
+{% block title %}
+    Update Project
+{% endblock title %}
+    
+
+
+
+{% block content %}
+<div class="row">
+    <div class="col-6">
+        <div class="container  d-flex flex-column gap-3">
+            <h1>Update Project</h1>
+            <form action="{% url 'projects:update_project_view' project.id %}"  method="post" enctype="multipart/form-data" class="d-flex flex-column gap-4">
+                {% csrf_token %}
+                <input type="text" placeholder="" class="form-control" name="title" value="{{project.title}}">
+                <textarea placeholder="description"  class="form-control" name="description">{{project.description}}</textarea>
+                <input type="text" placeholder="technologies" class="form-control" name="technologies" value="{{project.technologies}}">
+                <input type="date" class="form-control" name="completed_date" value="{{ project.completed_date|date:"Y-m-d" }}">
+
+                <input type="url" name="link" class="form-control" placeholder="Enter project URL" value="{{project.link}}">
+                <div class="d-flex flex-column gap-3">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.name }}" style=" width: 200px;">
+                    {% endif %}
+                    <label class="text-white">Image:</label>
+                    <input type="file" name="image" class="file text-white"  accept="image/*">
+                    {% if project.video %}
+                        <video autoplay muted loop src="{{project.video.url}}" style="width: 200px;"></video>
+                    {% endif %}
+                    <label class="text-white">Video:</label>
+                    <input type="file" name="video" class="file text-white" accept="video/*">
+                </div>
+                <div class="d-flex flex-column gap-2 text-white">
+                    <label for="category">Select Category</label>
+                    <select name="category" id="category">
+                        {% for val,label in category %}
+                            <option {% if project.category == val %}selected{% endif %} value="{{val}}">{{label}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+               
+                <input type="submit" value="update Project" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+    

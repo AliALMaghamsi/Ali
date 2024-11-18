@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+
+
+
+{% block title %}
+    Add_project
+{% endblock title %}
+    
+
+
+
+{% block content %}
+<div class="row">
+    <div class="col-6">
+        <div class="container  d-flex flex-column gap-3">
+            <h1>New Project</h1>
+            <form action="{% url 'projects:new_project_view' %}"  method="post" enctype="multipart/form-data" class="d-flex flex-column gap-4">
+                {% csrf_token %}
+                <input type="text" placeholder="Title" class="form-control" name="title">
+                <textarea placeholder="description"  class="form-control" name="description"></textarea>
+                <input type="text" placeholder="technologies" class="form-control" name="technologies">
+                <input type="date" class="form-control" name="completed_date">
+                <input type="url" name="link" class="form-control" placeholder="Enter project URL" required>
+                <div class="d-flex flex-column gap-3">
+                    <label class="text-white">Image:</label>
+                    <input type="file" name="image" class="file text-white"  accept="image/*">
+                    <label class="text-white">Video:</label>
+                    <input type="file" name="video" class="file text-white" accept="video/*">
+                </div>
+                <div class="d-flex flex-column gap-2 text-white">
+                    <label for="category">Select Category</label>
+                    <select name="category" id="category">
+                        {% for val,label in category %}
+                            <option value="{{val}}">{{label}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+               
+                <input type="submit" value="Add Project" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+    

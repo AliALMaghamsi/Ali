@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+
+
+
+{% block title %}
+    {{project.title}}
+{% endblock title %}
+    
+
+
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+                        
+            <div class="col-md-4">
+                {% if project.video %}
+                    <video muted autoplay loop src="{{ project.video.url }}" class="img-fluid"></video>
+                {% elif project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-fluid">
+                {% else %}
+                    <p>No media available</p>
+                {% endif %}
+            </div>
+            <div class="col-md-8 text-white">
+                <h2>{{ project.title }}</h2>
+                <p class="text-start"><strong>Category:</strong> {{ project.get_category_display }}</p>
+                <p class="text-start"><strong>Completed Date:</strong> {{ project.completed_date }}</p>
+                <h5 class="text-start">{{project.description}}</h5>
+                <p class="text-start"><strong>Technologies:</strong> {{ project.technologies }}</p>
+                <div class="d-flex gap-3">
+                    <a href="{{ project.link }}" target="_blank" class="btn bg-secondary ">Project Link</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    

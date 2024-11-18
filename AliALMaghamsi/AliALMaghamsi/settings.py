@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import dj_database_url
 from pathlib import Path
 import os
 
@@ -84,20 +84,14 @@ WSGI_APPLICATION = 'AliALMaghamsi.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ["PGDATABASE"],
-        'USER': os.environ["PGUSER"],
-        'PASSWORD': os.environ["PGPASSWORD"],
-        'HOST': os.environ["PGHOST"],
-        'PORT': os.environ["PGPORT"],
-    }
-}if not DEBUG  else {
         'default':{
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
         } 
 }
+DATABASES["default"]=dj_database_url.parse("postgresql://ali_almaghamsi_site_user:fUvGwxdDz1AHhRZVnDq8kvsAyr72oqaY@dpg-cstb235umphs73fnc780-a.oregon-postgres.render.com/ali_almaghamsi_site")
+
+
 
 
 # Password validation

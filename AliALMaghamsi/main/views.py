@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.contrib import messages
 from django.http import HttpRequest,HttpResponse
 from .forms import ContactForm
 from .models import Contact
@@ -19,7 +20,8 @@ def contact_view(request:HttpRequest):
         contact_form=ContactForm(request.POST)
         if contact_form.is_valid():
             contact_form.save()
-            return redirect("main:home_view")
+            messages.success(request, "Your message has been sent successfully!")
+            
     return render(request,'main/contact.html')
 
 

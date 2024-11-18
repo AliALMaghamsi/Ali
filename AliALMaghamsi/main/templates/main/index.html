@@ -80,7 +80,7 @@
                         
                         <div class="col-md-4">
                             {% if project.video %}
-                                <a href="{{ project.video.url }}" target="_blank">Watch Video</a>
+                            <video muted autoplay loop src="{{ project.video.url }}" style="width: 100px;"></video>
                             {% elif project.image %}
                                 <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-fluid">
                             {% else %}

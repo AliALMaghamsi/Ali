@@ -1,5 +1,5 @@
 venv/
-.env
+.env/
 static/
 media/
 # Byte-compiled / optimized / DLL files

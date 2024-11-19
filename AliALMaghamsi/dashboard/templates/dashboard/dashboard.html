@@ -10,18 +10,18 @@
         <!-- Sidebar -->
         <div class="col-12 col-md-4 col-lg-3">
             <div class="d-flex flex-column gap-2 text-bg-dark align-items-center" style="width: 280px;">
-                <a href="{% url 'dashboard:dashboard_view' user password %}" class="btn">
+                <a href="{% url 'dashboard:dashboard_view'  %}" class="btn">
                     <h1>DashBoard</h1>
                     <hr>
                 </a>
                 <div class="d-flex flex-column gap-5">
-                    <form method="POST" action="{% url 'dashboard:dashboard_view' user password %}">
+                    <form method="POST" action="{% url 'dashboard:dashboard_view'  %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-dark nav-link text-white" name="section" value="projects">
                             <h1>Projects</h1>
                         </button>
                     </form>
-                    <form method="POST" action="{% url 'dashboard:dashboard_view' user password %}">
+                    <form method="POST" action="{% url 'dashboard:dashboard_view'  %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-dark nav-link text-white mt-5" name="section" value="messages">
                             <h1>Messages</h1>
@@ -37,7 +37,7 @@
             <!-- Projects Section -->
             <div class="table-responsive mt-3">
                 <div class="d-flex align-items-center justify-content-end gap-2 mb-3 me-4">
-                    <form action="{% url 'dashboard:dashboard_view' user password %}">
+                    <form action="{% url 'dashboard:dashboard_view'  %}">
                         <select name="order_by" class="form-select" onchange="this.form.submit()">
                             <option value="">order_by</option>
                             <option value="completed_date" {% if request.GET.order_by == 'completed_date' %} selected {% endif %}>Date</option>
@@ -45,7 +45,7 @@
                         </select>
                     </form>
                     <a href="{% url 'projects:new_project_view' %}" class="btn btn-primary">+Add New Project</a>
-                    <form action="{% url 'dashboard:dashboard_view' user password %}" method="get" class="d-flex">
+                    <form action="{% url 'dashboard:dashboard_view' %}" method="get" class="d-flex">
                         <input type="text" name="search" class="form-control me-2" placeholder="Search projects..." aria-label="Search" value="{{ request.GET.search }}">
                         <button type="submit" class="btn btn-outline-light">Search</button>
                     </form>

@@ -1,17 +1,16 @@
 from django.shortcuts import render,redirect
 from django.http import HttpRequest,HttpResponse
+from django.contrib.auth.decorators import user_passes_test
 from projects.models import Project
 from main.models import Contact
 from django.core.paginator import Paginator
 # Create your views here.
 
-def dashboard_view(request:HttpRequest,username, password):
-            admin_name='Ali'
-            admin_pass="Ali-123"
-            
+def is_superuser(user):
+    return user.is_superuser
 
-            
-            if username==admin_name and password==admin_pass:    
+@user_passes_test(is_superuser,login_url="/admin/login/")
+def dashboard_view(request:HttpRequest):
                 section = request.GET.get('section') or request.POST.get('section', 'projects')
 
                 if section == 'projects':
@@ -38,12 +37,8 @@ def dashboard_view(request:HttpRequest,username, password):
                     display=paginator.get_page(page) 
                 else:
                     display=None
-                return render(request,"dashboard/dashboard.html",context={"section":section,"display":display,"user":admin_name,"password":admin_pass})
-            else:
-                 return redirect("dashboard:dashboard_error_view")
+                return render(request,"dashboard/dashboard.html",context={"section":section,"display":display})
+           
             
        
             
-
-def dashboard_error_view(request:HttpRequest):
-    return render(request,"dashboard/dasherror.html")

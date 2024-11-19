@@ -22,7 +22,7 @@ def new_project_view(request:HttpRequest):
             project_form=ProjectForm(request.POST,request.FILES)
             if project_form.is_valid():
                 project_form.save()
-                return redirect('dashboard:dashboard_view',"Ali","Ali-123")
+                return redirect('dashboard:dashboard_view')
             else:
                 project_form=ProjectForm()
 
@@ -46,7 +46,7 @@ def update_project_view(request:HttpRequest,project_id:int):
             project=ProjectForm(request.POST,request.FILES,instance=project)
             if project.is_valid():
                 project.save()
-                return redirect('dashboard:dashboard_view',"Ali","Ali-123")
+                return redirect('dashboard:dashboard_view')
             else:
                 redirect('projects:update_project_view',project.id)
     except Exception :
@@ -58,4 +58,4 @@ def update_project_view(request:HttpRequest,project_id:int):
 def delete_project_view(request:HttpRequest,project_id:int):
     project=Project.objects.get(pk=project_id)
     project.delete()
-    return redirect('dashboard:dashboard_view',"Ali","Ali-123")
+    return redirect('dashboard:dashboard_view')
